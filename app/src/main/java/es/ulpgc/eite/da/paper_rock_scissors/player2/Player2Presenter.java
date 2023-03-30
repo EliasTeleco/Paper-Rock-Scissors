@@ -34,8 +34,7 @@ public class Player2Presenter implements Player2Contract.Presenter {
     state = new Player2State();
 
     // TODO: add code if is necessary
-    state.optionClicked = false;
-    state.option = "?";
+
 
 
   }
@@ -46,6 +45,10 @@ public class Player2Presenter implements Player2Contract.Presenter {
 
     // TODO: add code if is necessary
 
+    state = mediator.getPlayer2ScreenState();
+    model.onUpdatedDataFromRestartedScreen(state.playerOption);
+    view.get().onViewModelDataUpdated(state);
+
   }
 
   @Override
@@ -53,27 +56,19 @@ public class Player2Presenter implements Player2Contract.Presenter {
     Log.e(TAG, "onResume()");
 
     // TODO: add code if is necessary
-    Player1ToPlayer2State savedState =getStateFromPlayer1();
+    Player1ToPlayer2State savedState = mediator.getPlayer1ToPlayer2ScreenState();
+
     if(savedState !=null){
-      model.onUpdatedDataFromPreviousScreen(savedState.playerOption);
-
-
-      view.get().onViewModelDataUpdated(state);
+      model.onUpdatedDataFromRestartedScreen(savedState.playerOption);
+      state.playerOption  = model.getStoredData();
 
     }
-    model.onUpdatedDataFromPreviousScreen(savedState.playerOption);
 
-
-    view.get().onViewModelDataUpdated(state);
     // update the view
     view.get().onViewModelDataUpdated(state);
 
   }
 
-   private Player1ToPlayer2State getStateFromPlayer1() {
-      Player1ToPlayer2State state = mediator.getPlayer1ToPlayer2ScreenState();
-      return state;
-  }
 
 
   @Override
@@ -82,6 +77,11 @@ public class Player2Presenter implements Player2Contract.Presenter {
 
     // TODO: add code if is necessary
 
+    Player2ToPlayer1State passEstado = new Player2ToPlayer1State();
+    state.playerOption = "?";
+    passEstado.playerOption = state.playerOption;
+    passToPlayer1Screen (passEstado);
+
   }
 
   @Override
@@ -89,6 +89,8 @@ public class Player2Presenter implements Player2Contract.Presenter {
     Log.e(TAG, "onPause()");
 
     // TODO: add code if is necessary
+
+    mediator.setPlayer2ScreenState(state);
 
   }
 
@@ -103,20 +105,26 @@ public class Player2Presenter implements Player2Contract.Presenter {
   @Override
   public void onButtonClicked(String option) {
     Log.e(TAG, "onButtonClicked()");
+    Player2ToPlayer1State estadoBotonPulsado = new Player2ToPlayer1State();
 
     // TODO: add code if is necessary
-
-    state.optionClicked =  true;
-    state.playerOption = model.getStoredData();
-
-    view.get().onViewModelDataUpdated(state);
-
+    if(option.equals("Paper")){
+      state.playerOption = "Paper";
+      estadoBotonPulsado.playerOption = state.playerOption;
+    }else if (option.equals("Rock")){
+      state.playerOption = "Rock";
+      estadoBotonPulsado.playerOption = state.playerOption;
+    }else if (option.equals("Scissors")) {
+      state.playerOption = "Scissors";
+      estadoBotonPulsado.playerOption = state.playerOption;
+    }else {
+      state.playerOption = "?";
+      estadoBotonPulsado.playerOption = state.playerOption;
+    }
 
     //Pasar estado a otra pantalla
-    Player2ToPlayer1State newState = new Player2ToPlayer1State();
-    newState.playerOption = model.getStoredData();
-    passToPlayer1Screen (newState);
-    view.get().navigateToNextScreen();
+    passToPlayer1Screen (estadoBotonPulsado);
+    view.get().navigateToPreviousScreen();
 
   }
 

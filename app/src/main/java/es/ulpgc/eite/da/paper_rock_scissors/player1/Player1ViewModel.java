@@ -9,6 +9,4 @@ public class Player1ViewModel {
 
   // put the view state here
   public String playerOption;
-  public boolean optionClicked;
-  public String option;
 }

@@ -16,7 +16,7 @@ public class Player1Model implements Player1Contract.Model {
   }
 
   @Override
-  public String getStoredData(String data ) {
+  public String getStoredData () {
     // Log.e(TAG, "getStoredData()");
 
     // TODO: add code if is necessary
@@ -38,7 +38,7 @@ public class Player1Model implements Player1Contract.Model {
     // Log.e(TAG, "onUpdatedDataFromRestartedScreen()");
 
     // TODO: add code if is necessary
-
+    playerOption = data;
   }
 
   @Override

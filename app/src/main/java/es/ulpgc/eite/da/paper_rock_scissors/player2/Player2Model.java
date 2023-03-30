@@ -37,6 +37,7 @@ public class Player2Model implements Player2Contract.Model {
     // Log.e(TAG, "onUpdatedDataFromRestartedScreen()");
 
     // TODO: add code if is necessary
+    playerOption = data;
 
   }
 

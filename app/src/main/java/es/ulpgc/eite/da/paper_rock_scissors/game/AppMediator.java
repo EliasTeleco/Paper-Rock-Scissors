@@ -22,8 +22,8 @@ public class AppMediator {
 
 
   private AppMediator() {
-    //mPlayer1State = new Player1State();
-    //mPlayer2State = new Player2State();
+    mPlayer1State = new Player1State();
+    mPlayer2State = new Player2State();
   }
 
 

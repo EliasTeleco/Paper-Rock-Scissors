@@ -40,7 +40,7 @@ public interface Player1Contract {
   }
 
   interface Model {
-    String getStoredData(String data);
+    String getStoredData();
 
     String getUpdatedDataDuringPause();
 
